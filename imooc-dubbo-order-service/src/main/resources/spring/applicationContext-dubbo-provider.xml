@@ -22,5 +22,5 @@
 		ref="ordersService" />
 		
 	<!-- 监控服务的注册 -->
-	<dubbo:monitor protocol="registry"></dubbo:monitor>
+<!-- 	<dubbo:monitor protocol="registry"></dubbo:monitor> -->
 </beans>  
