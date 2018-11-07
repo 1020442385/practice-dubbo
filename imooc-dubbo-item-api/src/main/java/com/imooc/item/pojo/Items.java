@@ -3,39 +3,40 @@ package com.imooc.item.pojo;
 import java.io.Serializable;
 
 public class Items implements Serializable {
-	private static final long serialVersionUID = -3255670677835531509L;
+
+	private static final long serialVersionUID = 7076688245015299409L;
 
 	private String id;
 
-    private String name;
+	private String name;
 
-    private Integer counts;
-    
-    private Integer buyCounts;
-    
-    public String getId() {
-        return id;
-    }
+	private Integer counts;
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	private Integer buyCounts;
 
-    public String getName() {
-        return name;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setId(String id) {
+		this.id = id == null ? null : id.trim();
+	}
 
-    public Integer getCounts() {
-        return counts;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCounts(Integer counts) {
-        this.counts = counts;
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
+
+	public Integer getCounts() {
+		return counts;
+	}
+
+	public void setCounts(Integer counts) {
+		this.counts = counts;
+	}
 
 	public Integer getBuyCounts() {
 		return buyCounts;
@@ -44,4 +45,5 @@ public class Items implements Serializable {
 	public void setBuyCounts(Integer buyCounts) {
 		this.buyCounts = buyCounts;
 	}
+
 }

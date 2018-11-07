@@ -1,10 +1,14 @@
 package com.imooc.order.pojo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersExample {
-    protected String orderByClause;
+public class OrdersExample implements Serializable{
+	
+	private static final long serialVersionUID = 1827932194931343456L;
+
+	protected String orderByClause;
 
     protected boolean distinct;
 

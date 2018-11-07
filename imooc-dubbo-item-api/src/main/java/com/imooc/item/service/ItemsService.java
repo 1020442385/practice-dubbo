@@ -4,6 +4,9 @@ import com.imooc.item.pojo.Items;
 
 public interface ItemsService {
 
+	/**
+	 * @Description: 根据商品id获取商品
+	 */
 	public Items getItem(String itemId);
 	
 	/**

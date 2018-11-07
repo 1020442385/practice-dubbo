@@ -1,9 +1,9 @@
 package com.imooc.web.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -11,20 +11,13 @@ import com.imooc.common.utils.IMoocJSONResult;
 import com.imooc.curator.utils.ZKCurator;
 import com.imooc.item.pojo.Items;
 import com.imooc.item.service.ItemsService;
-import com.imooc.order.pojo.Orders;
-import com.imooc.order.service.OrdersService;
 import com.imooc.web.service.CulsterService;
 
+/**
+ * @Description: 订购商品controller
+ */
 @Controller
 public class PayController {
-	
-	final static Logger log = LoggerFactory.getLogger(PayController.class);
-	
-	@Autowired
-	private ItemsService itemsService;
-	
-	@Autowired
-	private OrdersService ordersService;
 	
 	@Autowired
 	private CulsterService culsterService;
@@ -32,50 +25,56 @@ public class PayController {
 	@Autowired
 	private ZKCurator zkCurator;
 	
-	@RequestMapping("/test")
-	@ResponseBody
-	public IMoocJSONResult test() {
-		
-		return IMoocJSONResult.ok("test");
+	@Autowired
+	private ItemsService itemService;
+	
+	@RequestMapping("/index")
+	public String index() {
+		return "index";
 	}
 	
-	@RequestMapping("/item")
-	@ResponseBody
-	public IMoocJSONResult getItemById(String id) {
-		
-		Items item = itemsService.getItem(id);
-		
-		return IMoocJSONResult.ok(item);
-	}
-	
-	@RequestMapping("/order")
-	@ResponseBody
-	public IMoocJSONResult getOrderById(String id) {
-		
-		Orders order = ordersService.getOrder(id);
-		
-		return IMoocJSONResult.ok(order);
-	}
-	
-	@RequestMapping("/buy")
+	@GetMapping("/buy")
 	@ResponseBody
 	public IMoocJSONResult buy(String itemId) {
-		boolean result = culsterService.displayBuy(itemId);
+		boolean result;
+		if (StringUtils.isNotBlank(itemId)) {
+			result = culsterService.displayBuy(itemId);
+		} else {
+			return IMoocJSONResult.errorMsg("商品id不能为空");
+		}
+		
 		return IMoocJSONResult.ok(result ? "订单创建成功..." : "订单创建失败...");
 	}
 	
 	/**
-	 * @Description: 模拟集群下的数据不一致
+	 * 模拟集群下的数据不一致
+	 * @param itemId
+	 * @return
 	 */
-	@RequestMapping("/buy2")
+	
+	@GetMapping("/buy2")
 	@ResponseBody
 	public IMoocJSONResult buy2(String itemId) {
-		boolean result = culsterService.displayBuy(itemId);
+		boolean result;
+		if (StringUtils.isNotBlank(itemId)) {
+			result = culsterService.displayBuy(itemId);
+		} else {
+			return IMoocJSONResult.errorMsg("商品id不能为空");
+		}
+		
 		return IMoocJSONResult.ok(result ? "订单创建成功..." : "订单创建失败...");
 	}
 	
+	@GetMapping("/getItem")
+	@ResponseBody
+	public IMoocJSONResult getItem(String itemId) {
+		Items items = itemService.getItem(itemId);
+		return IMoocJSONResult.ok(items);
+	}
+	
 	/**
-	 * @Description: 判断zk是否连接
+	 * 判断zk是否是连接的
+	 * @return
 	 */
 	@RequestMapping("/isZKAlive")
 	@ResponseBody
@@ -84,4 +83,5 @@ public class PayController {
 		String result = isAlive ? "连接" : "断开";
 		return IMoocJSONResult.ok(result);
 	}
+	
 }

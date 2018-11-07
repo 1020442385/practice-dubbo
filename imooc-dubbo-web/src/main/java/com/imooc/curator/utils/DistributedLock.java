@@ -53,7 +53,7 @@ public class DistributedLock {
 		try {
 			if (client.checkExists().forPath("/" + ZK_LOCK_PROJECT) == null) {
 				client.create()
-						.creatingParentsIfNeeded()
+						.creatingParentsIfNeeded() //递归创建
 						.withMode(CreateMode.PERSISTENT)
 						.withACL(Ids.OPEN_ACL_UNSAFE)
 						.forPath("/" + ZK_LOCK_PROJECT);

@@ -2,7 +2,8 @@ package com.imooc.order.pojo;
 
 import java.io.Serializable;
 
-public class Orders implements Serializable {
+public class Orders implements Serializable{
+
 	private static final long serialVersionUID = -8247834542760425065L;
 
 	private String id;
